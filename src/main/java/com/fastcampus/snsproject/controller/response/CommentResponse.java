@@ -1,6 +1,6 @@
 package com.fastcampus.snsproject.controller.response;
 
-import com.fastcampus.snsproject.model.Post;
+import com.fastcampus.snsproject.model.Comment;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -8,15 +8,15 @@ import java.sql.Timestamp;
 
 @AllArgsConstructor
 @Getter
-public class PostResponse {
+public class CommentResponse {
 
     private Integer id;
 
-    private String title;
+    private String comment;
 
-    private String body;
+    private String userName;
 
-    private UserResponse user;
+    private Integer postId;
 
     private Timestamp registeredAt;
 
@@ -24,15 +24,15 @@ public class PostResponse {
 
     private Timestamp deletedAt;
 
-    public static PostResponse formPost(Post post) {
-        return new PostResponse(
-                post.getId(),
-                post.getTitle(),
-                post.getBody(),
-                UserResponse.fromUser(post.getUser()),
-                post.getRegisteredAt(),
-                post.getUpdatedAt(),
-                post.getDeletedAt()
+    public static CommentResponse fromComment(Comment comment) {
+        return new CommentResponse(
+                comment.getId(),
+                comment.getComment(),
+                comment.getUserName(),
+                comment.getPostId(),
+                comment.getRegisteredAt(),
+                comment.getUpdatedAt(),
+                comment.getDeletedAt()
         );
     }
 

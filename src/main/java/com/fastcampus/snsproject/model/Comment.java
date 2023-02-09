@@ -1,7 +1,6 @@
 package com.fastcampus.snsproject.model;
 
-import com.fastcampus.snsproject.model.entity.PostEntity;
-import com.fastcampus.snsproject.model.entity.UserEntity;
+import com.fastcampus.snsproject.model.entity.CommentEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,14 +8,14 @@ import java.sql.Timestamp;
 
 @Getter
 @AllArgsConstructor
-public class Post {
+public class Comment {
     private Integer id;
 
-    private String title;
+    private String comment;
 
-    private String body;
+    private String userName;
 
-    private User user;
+    private Integer postId;
 
     private Timestamp registeredAt;
 
@@ -25,12 +24,12 @@ public class Post {
     private Timestamp deletedAt;
 
 
-    public static Post fromEntity(PostEntity entity) {
-        return new Post(
+    public static Comment fromEntity(CommentEntity entity) {
+        return new Comment(
                 entity.getId(),
-                entity.getTitle(),
-                entity.getBody(),
-                User.fromEntity(entity.getUser()),
+                entity.getComment(),
+                entity.getUser().getUserName(),
+                entity.getPost().getId(),
                 entity.getRegisteredAt(),
                 entity.getUpdatedAt(),
                 entity.getDeletedAt()

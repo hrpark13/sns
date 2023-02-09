@@ -11,13 +11,15 @@ import java.sql.Timestamp;
 import java.time.Instant;
 
 @Entity
-@Table(name = "\"like00\"")
+@Table(name = "\"comment00\"", indexes = {
+        @Index(name = "post_id_idx1", columnList = "post_id")
+})
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE \"like00\" SET deleted_at = NOW() WHERE id=?")
+@SQLDelete(sql = "UPDATE \"comment00\" SET deleted_at = NOW() WHERE id=?")
 @Where(clause = "deleted_at is NULL")
 @NoArgsConstructor
-public class LikeEntity {
+public class CommentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,6 +31,9 @@ public class LikeEntity {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private PostEntity post;
+
+    @Column(name = "comment")
+    private String comment;
 
     @Column(name = "registered_at")
     private Timestamp registeredAt;
@@ -49,10 +54,11 @@ public class LikeEntity {
         this.updatedAt = Timestamp.from(Instant.now());
     }
 
-    public static LikeEntity of(UserEntity userEntity, PostEntity postEntity) {
-        LikeEntity entity = new LikeEntity();
+    public static CommentEntity of(UserEntity userEntity, PostEntity postEntity, String comment) {
+        CommentEntity entity = new CommentEntity();
         entity.setUser(userEntity);
         entity.setPost(postEntity);
+        entity.setComment(comment);
         return entity;
     }
 }

@@ -1,27 +1,17 @@
 package com.fastcampus.snsproject.repository;
 
-import com.fastcampus.snsproject.model.entity.LikeEntity;
-import com.fastcampus.snsproject.model.entity.PostEntity;
+import com.fastcampus.snsproject.model.entity.AlarmEntity;
 import com.fastcampus.snsproject.model.entity.UserEntity;
-import org.aspectj.apache.bcel.classfile.Module;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface LikeEntityRepository extends JpaRepository<LikeEntity, Integer> {
+public interface AlarmEntityRepository extends JpaRepository<AlarmEntity, Integer> {
 
-    Optional<LikeEntity> findByUserAndPost(UserEntity user, PostEntity post);
+    Page<AlarmEntity> findAllByUserId(Integer userId, Pageable pageable);
 
-    @Query(value = "SELECT COUNT(*) FROM LikeEntity entity WHERE entity.post = :post")
-    Integer countByPost(@Param("post") PostEntity post);
-
-    List<LikeEntity> findAllByPost(PostEntity post);
 }
